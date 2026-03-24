@@ -1,0 +1,53 @@
+package br.com.fiap.study_apir.controller;
+
+import br.com.fiap.study_apir.model.Produto;
+import br.com.fiap.study_apir.repository.RepositoryProdutoMockup;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("api/${api.version}/produtos")
+public class ProdutoController {
+
+    private RepositoryProdutoMockup mockup = new RepositoryProdutoMockup();
+
+    @PostMapping
+    public ResponseEntity<String> create() {
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Produto criado");
+
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Produto> findById(@PathVariable Long id) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(mockup.findById(id));
+
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Produto>> findAll() {
+
+        return ResponseEntity.status(HttpStatus.OK).body(mockup.findAll());
+
+    }
+
+    @PutMapping
+    public ResponseEntity<String> update() {
+
+        return ResponseEntity.status(HttpStatus.OK).body("Produto atualizado");
+
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> delete() {
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Produto excluido");
+
+    }
+
+}
