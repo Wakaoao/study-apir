@@ -4,6 +4,7 @@ import br.com.fiap.study_apir.model.Produto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class RepositoryProdutoMockup {
 
@@ -26,14 +27,12 @@ public class RepositoryProdutoMockup {
 
     }
 
-    public Produto findById(Long id) {
+    public Optional<Produto> findById(Long id) {
 
-        for (Produto produto : produtos) {
-            if (produto.getId().equals(id)) {
-                return produto;
-            }
-        }
-        return null;
+        return produtos.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst();
+
     }
 
 }

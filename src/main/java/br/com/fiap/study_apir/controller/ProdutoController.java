@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/${api.version}/produtos")
@@ -25,7 +26,9 @@ public class ProdutoController {
     @GetMapping("/{id}")
     public ResponseEntity<Produto> findById(@PathVariable Long id) {
 
-        return ResponseEntity.status(HttpStatus.OK).body(mockup.findById(id));
+        return mockup.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
 
     }
 
